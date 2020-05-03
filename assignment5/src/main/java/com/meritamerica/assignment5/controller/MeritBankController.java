@@ -12,6 +12,7 @@ import com.meritamerica.assignment5.AccountHolder;
 import com.meritamerica.assignment5.MeritBank;
 import Accounts.CheckingAccount;
 import Exceptions.ExceedsCombinedBalanceLimitException;
+import Exceptions.NegativeAmountException;
 import Exceptions.NotFoundException;
 
 @RestController
@@ -34,7 +35,7 @@ public class MeritBankController {
     @PostMapping("AccountHolders/{id}/CheckingAccounts")
     @ResponseStatus(HttpStatus.CREATED) 
     public CheckingAccount ach (@PathVariable(name="id")int id,
-    				@RequestBody @Valid CheckingAccount ach) throws NotFoundException, ExceedsCombinedBalanceLimitException {
+    				@RequestBody @Valid CheckingAccount ach) throws NotFoundException, ExceedsCombinedBalanceLimitException, NegativeAmountException {
     	AccountHolder a = MeritBank.getAH(id);
     	a.addCheckingAccount(ach);
     	return ach;
